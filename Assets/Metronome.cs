@@ -4,12 +4,20 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(AudioSource))]
-public class Metronome : MonoBehaviour
+public class Metronome : Singleton<Metronome>
 {
     private MusicMap _map;
     private UnityEvent BeatEvent;
+    private float beatFloat;
     private AudioSource _audioSource;
 
+    public float BeatFloat
+    {
+        get
+        {
+            return beatFloat;
+        }
+    }
 
     private void Awake()
     {
@@ -19,7 +27,7 @@ public class Metronome : MonoBehaviour
     public void LoadMap(MusicMap map)
     {
         _map = map;
-        _audioSource.clip = map.song;
+        _audioSource.clip = (AudioClip)Resources.Load(map.audioFilename);
     }
 
     public void Play()
@@ -33,6 +41,7 @@ public class Metronome : MonoBehaviour
     {
         float elaspedTime = 0;
         float nextbeat = _map.offset;
+        float beatInterval = 60.0F / _map.bpm;
         _audioSource.Play();
         
         while (_audioSource.isPlaying)
@@ -44,9 +53,14 @@ public class Metronome : MonoBehaviour
             {
 
                 BeatEvent.Invoke();
-                nextbeat += (60.0F / _map.bpm);
+                nextbeat += beatInterval;
+
             }
-            
+            beatFloat = (elaspedTime - _map.offset) % beatInterval;//Optomize later. 
+            beatFloat = beatFloat / beatInterval;
+            //Debug.Log((elaspedTime - _map.offset) / beatInterval);
+            Debug.Log(beatInterval);
+
             yield return null;
 
         }
