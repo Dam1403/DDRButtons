@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class CommandTile : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void Awake()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        GetComponent<BoxCollider2D>().size = new Vector2(
+            GetComponent<RectTransform>().rect.width,
+            GetComponent<RectTransform>().rect.height
+     );
     }
 }

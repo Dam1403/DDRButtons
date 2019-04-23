@@ -16,8 +16,8 @@ public class MetroTester : MonoBehaviour
         toLoad = new MusicMap();
         toLoad.audioFilename = "resistance";
         //toLoad.bpm = 30.0F;
-        toLoad.bpm = 148.0F;
-        toLoad.offset = 0.0F;
+        toLoad.bpm = 37.0F;
+        toLoad.offset = 0.810810810810F;
         toLoad.beatsPerMeasure = 4;
         nome = GetComponent<Metronome>();
         nome.AddBeatListener(() => cube.SetActive(!cube.active));

@@ -6,6 +6,7 @@ public class ScoreSheet : MonoBehaviour
 {
     [SerializeField] private RectTransform timingBar;
     private Metronome metronome;
+    private List<CommandTile> scrollingTiles;
 
 
 
@@ -37,5 +38,9 @@ public class ScoreSheet : MonoBehaviour
         position.z = 0.0F;
         timingBar.localPosition = position;
         //Debug.Log(metronome.BeatFloat);
+        for(int i = 0; i < scrollingTiles.Count; i++)
+        {
+            scrollingTiles[i].transform.localPosition = position;//Fix this
+        }
     }
 }
